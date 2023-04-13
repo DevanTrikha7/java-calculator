@@ -29,13 +29,13 @@ class DisplayTest {
 	}
 	@Test
 	 void testCreateGuiComponentCreatesJTextField() {
-	  Object obj = display.createGuiComponent();
+	  Object obj = display.getGuiComponent();
 	  assertNotNull(obj);
 	  assertTrue(obj instanceof JTextField);
 	 }
 	@Test 
 	void testButtonIsCorrectSize() {
-		JTextField field = display.createGuiComponent();
+		JTextField field = display.getGuiComponent();
 		assertEquals(150.0, field.getPreferredSize().getWidth(),0.001);
 		assertEquals(50.0, field.getPreferredSize().getHeight(),0.001);
 	}

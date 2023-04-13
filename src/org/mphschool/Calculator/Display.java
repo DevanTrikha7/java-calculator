@@ -5,10 +5,14 @@ import java.awt.Dimension;
 import javax.swing.JTextField;
 
 public class Display {
-
-	public JTextField createGuiComponent() {
-		JTextField field = new JTextField();
+	private JTextField field;
+	
+	public Display() {
+		field = new JTextField();
 		field.setPreferredSize(new Dimension(150,50));
+	}
+
+	public JTextField getGuiComponent() {
 		return field;
 		
 	}

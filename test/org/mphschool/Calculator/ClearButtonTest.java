@@ -11,10 +11,12 @@ import org.junit.jupiter.api.Test;
 class ClearButtonTest {
 
 	private ClearButton button;
+	private MockCalculator calculator;
 
 	@BeforeEach
 	void setUp() throws Exception {
-		button=new ClearButton();
+		calculator = new MockCalculator();
+		button=new ClearButton(calculator);
 	}
 
 	@AfterEach
@@ -38,6 +40,18 @@ class ClearButtonTest {
 		assertEquals(50.0, btn.getPreferredSize().getWidth(), 0.001);
 		assertEquals(50.0, btn.getPreferredSize().getHeight(), 0.001); }
 	
+	@Test 
+	void testClickingTheButtonCallsClearOnTheCalulator() {
+		JButton btn = button.createGuiButton();
+		assertEquals("C", btn.getText());
+		
+	}
 	
+	@Test 
+	void testClickingTheButtonCallsClearOnTheCalculator() {
+		JButton btn = button.createGuiButton();
+		btn.doClick();
+		assertTrue(calculator.clearWasCalled);
+	}
 
 }

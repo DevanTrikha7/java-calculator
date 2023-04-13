@@ -1,5 +1,12 @@
 package org.mphschool.Calculator;
 
-public class DigitButton {
+import javax.swing.JButton;
+
+public class DigitButton extends Button {
+	
+	public DigitButton(String theLabel) {
+		super(theLabel);
+	}
+
 
 }
