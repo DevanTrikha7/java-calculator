@@ -10,13 +10,15 @@ import org.junit.jupiter.api.Test;
 
 class OperatorButtonTest {
 
+	private MockCalculator calculator;
 	private OperatorButton button;
 	private String label;
 
 	@BeforeEach
 	void setUp() throws Exception {
+		calculator = new MockCalculator();
 		label = "+";
-		button = new OperatorButton(label);
+		button = new OperatorButton(calculator, label);
 	}
 
 	@AfterEach

@@ -12,11 +12,13 @@ class DigitButtonTest {
 	
 	DigitButton button;
 	private String label;
+	private MockCalculator calculator;
+	
 	
 	@BeforeEach
 	void setUp() throws Exception {
 		label = "7";
-		button = new DigitButton(label);
+		button = new DigitButton(calculator, label);
 	}
 
 	@AfterEach
@@ -50,4 +52,15 @@ class DigitButtonTest {
 		assertEquals(50.0, btn.getPreferredSize().getWidth(), 0.01);
 		assertEquals(50.0, btn.getPreferredSize().getHeight(), 0.01);
 	}
+	
+	@Test
+	void testPressingTheButtonNotifiesTheCalculator() {
+		JButton btn = button.createGuiButton();
+		btn.doClick();
+		
+		assertTrue(calculator.diditPressedWasCalled);
+		assertEquals(label, calculator.digitThatWasPressed);
+		
+	}
 }
+

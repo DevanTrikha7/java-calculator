@@ -2,6 +2,8 @@ package org.mphschool.Calculator;
 
 import static org.junit.jupiter.api.Assertions.*;
 
+import java.awt.Color;
+
 import javax.swing.JButton;
 
 import org.junit.jupiter.api.AfterEach;
@@ -9,12 +11,10 @@ import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
 class EqualsButtonTest {
-
-	private EqualsButton button;
+	EqualsButton button = new EqualsButton();
 
 	@BeforeEach
 	void setUp() throws Exception {
-		button = new EqualsButton();
 	}
 
 	@AfterEach
@@ -22,17 +22,23 @@ class EqualsButtonTest {
 	}
 
 	@Test
-	void testNOtNull() {
+	void testNotNull() {
 		assertNotNull(button);
-		
 	}
-	@Test 
-	void testButtonIsCorrectSize() {
-		JButton btn = button.createGuiButton();
-		assertEquals(50.0, btn.getPreferredSize().getWidth(), 0.01);
-		assertEquals(50.0, btn.getPreferredSize().getHeight(), 0.01);
-
-}
-
 	
+	@Test
+	void testIsButton() {
+		assertTrue(button.createGuiButton() instanceof JButton);
+	}
+	
+	@Test
+	void testColor() {
+		assertEquals(button.createGuiButton().getBackground(), Color.blue);
+	}
+	
+	@Test
+	void testLabel() {
+		assertEquals(button.createGuiButton().getText(), "=");
+	}
+
 }

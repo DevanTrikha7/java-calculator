@@ -2,6 +2,8 @@ package org.mphschool.Calculator;
 
 import static org.junit.jupiter.api.Assertions.*;
 
+import java.awt.Color;
+
 import javax.swing.JButton;
 
 import org.junit.jupiter.api.AfterEach;
@@ -16,7 +18,7 @@ class ClearButtonTest {
 	@BeforeEach
 	void setUp() throws Exception {
 		calculator = new MockCalculator();
-		button=new ClearButton(calculator);
+		button = new ClearButton(calculator);
 	}
 
 	@AfterEach
@@ -25,33 +27,32 @@ class ClearButtonTest {
 
 	@Test
 	void testNotNull() {
-		assertNotNull(button);	
+		assertNotNull(button);
 	}
 	
 	@Test
-	void testDisplaysC() {
-		JButton btn=button.createGuiButton();
-		assertEquals("C",btn.getText());
+	void testCreateGuiButton() {
+		Object btn = button.createGuiButton();
+		assertNotNull(btn);
+		assertTrue(btn instanceof JButton);
 	}
 	
-	@Test 
-	void testButtonIsCorrectSize() {
-		JButton btn = button.createGuiButton();
-		assertEquals(50.0, btn.getPreferredSize().getWidth(), 0.001);
-		assertEquals(50.0, btn.getPreferredSize().getHeight(), 0.001); }
-	
-	@Test 
-	void testClickingTheButtonCallsClearOnTheCalulator() {
+	@Test
+	void testButtonLabelIsC() {
 		JButton btn = button.createGuiButton();
 		assertEquals("C", btn.getText());
-		
 	}
 	
-	@Test 
-	void testClickingTheButtonCallsClearOnTheCalculator() {
+	@Test
+	void testButtonColor() {
+		JButton btn = button.createGuiButton();
+		assertEquals(btn.getBackground(), Color.red);
+	}
+
+	@Test
+	void testClickingTheButtonCallsClearTheCalculator() {
 		JButton btn = button.createGuiButton();
 		btn.doClick();
 		assertTrue(calculator.clearWasCalled);
 	}
-
 }

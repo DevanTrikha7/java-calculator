@@ -1,138 +1,82 @@
 package org.mphschool.Calculator;
 
-import javax.swing.BoxLayout;
+import java.awt.Component;
+import java.awt.FlowLayout;
+
 import javax.swing.JFrame;
-import javax.swing.JPanel;
 
-public class SwingCalculator extends JFrame implements Calculator{
+public class SwingCalculator extends JFrame implements Calculator {
 	
-	/**
-	 * 
-	 */
-	private static final long serialVersionUID = 1L;
-
 	public static void main(String[] args) {
-		System.out.println("calculator started");
+		SwingCalculator calculator = new SwingCalculator();
 		calculator.launchGui();
-		
-
 	}
-	private Display display;
 	
+	private Display display;
+	private String operand1 = "";
+
 	public SwingCalculator() {
 		super("Calculator");
-		
 		display = new Display();
 	}
 	
 	public Display getDisplay() {
 		return display;
-	
 	}
 	
 	private void launchGui() {
-
 		
-		JPanel firstRow = new JPanel();
+		setLayout(new FlowLayout());
 		ClearButton clearButton = new ClearButton(this);
-		firstRow.add(clearButton.createGuiButton());
-		add(firstRow);
+		add(clearButton.createGuiButton());
+		add(display.getGUIComponent());
 		
-		Display display = new Display();
-		firstRow.add(display.getGuiComponent());
+		add(new DigitButton(this, "7").createGuiButton());
+		add(new DigitButton(this, "8").createGuiButton());
+		add(new DigitButton(this, "9").createGuiButton());
+		add(new OperatorButton(this, "+").createGuiButton());
+		add(new DigitButton(this, "4").createGuiButton());
+		add(new DigitButton(this, "5").createGuiButton());
+		add(new DigitButton(this,"6").createGuiButton());
+		add(new OperatorButton(this, "-").createGuiButton());
+		add(new DigitButton(this,"3").createGuiButton());
+		add(new DigitButton(this,"2").createGuiButton());
+		add(new DigitButton(this,"1").createGuiButton());
+		add(new OperatorButton(this, "*").createGuiButton());
+		add(new DigitButton(this,".").createGuiButton());
+		add(new DigitButton(this,"0").createGuiButton());
+		add(new EqualsButton(this).createGuiButton());
+		add(new OperatorButton(this, "/").createGuiButton());
 		
-		add(firstRow);
-		
-		JPanel secondRow = new JPanel();
-		
-		DigitButton sevenButton = new DigitButton("7");
-		secondRow.add(sevenButton.createGuiButton());
-		
-		DigitButton eightButton = new DigitButton("8");
-		secondRow.add(eightButton.createGuiButton());
-		
-		DigitButton nineButton = new DigitButton("9");
-		secondRow.add(nineButton.createGuiButton());
-		
-		DigitButton addButton = new DigitButton("+");
-		secondRow.add(addButton.createGuiButton());
-		
-		setLayout(new BoxLayout(getContentPane(), BoxLayout.Y_AXIS));
-		
-		add(secondRow);
-		
-
-		JPanel thirdRow = new JPanel();
-		
-		DigitButton fourButton = new DigitButton("4");
-		thirdRow.add(fourButton.createGuiButton());
-		
-		DigitButton fiveButton = new DigitButton("5");
-		thirdRow.add(fiveButton.createGuiButton());
-		
-		DigitButton sixButton = new DigitButton("6");
-		thirdRow.add(sixButton.createGuiButton());
-		
-		DigitButton subtractButton = new DigitButton("-");
-		thirdRow.add(subtractButton.createGuiButton());
-		
-		setLayout(new BoxLayout(getContentPane(), BoxLayout.Y_AXIS));
-		
-		add(thirdRow);
-		
-		
-		JPanel fourthRow = new JPanel();
-		
-		DigitButton oneButton = new DigitButton("1");
-		fourthRow.add(oneButton.createGuiButton());
-		
-		DigitButton twoButton = new DigitButton("2");
-		fourthRow.add(twoButton.createGuiButton());
-		
-		DigitButton threeButton = new DigitButton("3");
-		fourthRow.add(threeButton.createGuiButton());
-		
-		DigitButton multiplyButton = new DigitButton("*");
-		fourthRow.add(multiplyButton.createGuiButton());
-		
-		setLayout(new BoxLayout(getContentPane(), BoxLayout.Y_AXIS));
-		
-		add(fourthRow);
-		
-		
-		JPanel fifthRow = new JPanel();
-		
-		DigitButton decimalButton = new DigitButton(".");
-		fifthRow.add(decimalButton.createGuiButton());
-		
-		DigitButton zeroButton = new DigitButton("0");
-		fifthRow.add(zeroButton.createGuiButton());
-		
-		EqualsButton equalsButton = new EqualsButton();
-		fifthRow.add(equalsButton.createGuiButton());
-		
-		DigitButton divideButton = new DigitButton("/");
-		fifthRow.add(divideButton.createGuiButton());
-		
-		
-		
-		
-		setLayout(new BoxLayout(getContentPane(), BoxLayout.Y_AXIS));
-		
-		add(fifthRow);
-		
-		
-		
-		setSize(250,350);
+		setSize(275, 375);
 		setPreferredSize(getSize());
+		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+		setResizable(false);
 		setVisible(true);
-		setDefaultCloseOperation(EXIT_ON_CLOSE);
-	}
 	}
 
 	@Override
 	public void clear() {
-		// TODO Auto-generated method stub
+		display.update("");
+	}
+	
+	@Override
+	public void digitPressed(String whichDigit) {
+		if (whichDigit.equals(".")) {
+			if (operand1.contains(".")) {
+				return;
+			}
+			if (operand1.isEmpty()) {
+				operand1 = "0";
+			}
+		}
 		
+		if (operand1.equals("0") && !whichDigit.equals(".")) {
+			operand1 = whichDigit;
+		} else {
+			operand1 += whichDigit;
+		}
+		
+		display.update(operand1);
 	}
 }
